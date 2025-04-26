@@ -1,0 +1,5 @@
+name = "bytecrash-landing" # Using the repo name as a default
+compatibility_date = "2025-04-27" # Using the date from the error log
+
+[site]
+bucket = "." # Point to the root directory containing the static files
