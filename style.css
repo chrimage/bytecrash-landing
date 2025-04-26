@@ -1,0 +1,258 @@
+/* style.css for bytecrash.xyz */
+
+/* 2. Color Palette */
+:root {
+  --bg-base: #0F0F0F;
+  --accent-cyan: #00FFE7;
+  --accent-violet: #B100FF;
+  --accent-magenta: #FF00AA;
+  --accent-lime: #AAFF00;
+  --text-base: #E7E7E7;
+}
+
+/* Base Styles & Layout */
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--bg-base);
+  color: var(--text-base);
+  font-family: 'Inter', 'Roboto Mono Light', sans-serif; /* Using common sans-serif as fallback */
+  font-size: 1rem;
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden; /* Prevent scrollbars from canvas potentially */
+  position: relative; /* Needed for pseudo-element positioning */
+}
+
+/* 4. Layout & Composition */
+main {
+  max-width: 600px;
+  padding: 2rem;
+  text-align: center;
+  position: relative; /* Needed for z-index stacking if other elements are added */
+  z-index: 1; /* Ensure main content is above the background canvas */
+  /* 6. On-load Animation */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1s 0.5s ease-out forwards; /* Added a slight delay */
+}
+
+/* 3. Typography */
+h1 {
+  font-family: 'Fira Code', 'Share Tech Mono', monospace; /* Using common monospace as fallback */
+  font-weight: 700; /* Bold */
+  font-size: clamp(2.5rem, 5vw + 1rem, 4rem); /* Fluid heading size */
+  color: var(--text-base);
+  margin-bottom: 1rem; /* Add some space below heading */
+  position: relative; /* Needed for absolute positioning of pseudo-elements */
+}
+
+/* 5c. Glitch Text Overlay */
+h1::before,
+h1::after {
+  content: attr(data-text); /* Use the data attribute */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-base); /* Match background to hide original text behind slices */
+  /* Animation applied below */
+}
+
+h1::before {
+  left: 2px; /* Offset */
+  text-shadow: -1px 0 var(--accent-violet); /* Color shift */
+  clip-path: inset(50% 0 30% 0); /* Initial clip */
+  animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+}
+
+h1::after {
+  left: -2px; /* Offset */
+  text-shadow: 1px 0 var(--accent-cyan); /* Color shift */
+  clip-path: inset(20% 0 65% 0); /* Initial clip */
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+/* Keyframes for the glitch effect */
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(50% 0 30% 0); transform: translate(-3px, 0); }
+  5% { clip-path: inset(20% 0 65% 0); transform: translate(3px, 1px); }
+  10% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, -1px); }
+  15% { clip-path: inset(40% 0 45% 0); transform: translate(2px, 0); }
+  20% { clip-path: inset(60% 0 20% 0); transform: translate(-4px, 1px); }
+  25% { clip-path: inset(30% 0 55% 0); transform: translate(1px, -2px); }
+  30% { clip-path: inset(90% 0 2% 0); transform: translate(-3px, 0); }
+  35% { clip-path: inset(10% 0 70% 0); transform: translate(4px, -1px); }
+  40% { clip-path: inset(70% 0 15% 0); transform: translate(-1px, 1px); }
+  45% { clip-path: inset(55% 0 35% 0); transform: translate(3px, 0); }
+  50% { clip-path: inset(25% 0 60% 0); transform: translate(-2px, 1px); }
+  55% { clip-path: inset(45% 0 40% 0); transform: translate(1px, -1px); }
+  60% { clip-path: inset(75% 0 10% 0); transform: translate(-3px, 0); }
+  65% { clip-path: inset(15% 0 75% 0); transform: translate(2px, 1px); }
+  70% { clip-path: inset(65% 0 25% 0); transform: translate(-1px, -1px); }
+  75% { clip-path: inset(35% 0 50% 0); transform: translate(4px, 0); }
+  80% { clip-path: inset(85% 0 8% 0); transform: translate(-2px, 1px); }
+  85% { clip-path: inset(5% 0 80% 0); transform: translate(1px, -1px); }
+  90% { clip-path: inset(50% 0 30% 0); transform: translate(-3px, 0); }
+  95% { clip-path: inset(20% 0 65% 0); transform: translate(2px, 1px); }
+  100% { clip-path: inset(80% 0 5% 0); transform: translate(0, 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(20% 0 65% 0); transform: translate(3px, 1px); }
+  5% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, -1px); }
+  10% { clip-path: inset(40% 0 45% 0); transform: translate(2px, 0); }
+  15% { clip-path: inset(60% 0 20% 0); transform: translate(-4px, 1px); }
+  20% { clip-path: inset(30% 0 55% 0); transform: translate(1px, -2px); }
+  25% { clip-path: inset(90% 0 2% 0); transform: translate(-3px, 0); }
+  30% { clip-path: inset(10% 0 70% 0); transform: translate(4px, -1px); }
+  35% { clip-path: inset(70% 0 15% 0); transform: translate(-1px, 1px); }
+  40% { clip-path: inset(55% 0 35% 0); transform: translate(3px, 0); }
+  45% { clip-path: inset(25% 0 60% 0); transform: translate(-2px, 1px); }
+  50% { clip-path: inset(45% 0 40% 0); transform: translate(1px, -1px); }
+  55% { clip-path: inset(75% 0 10% 0); transform: translate(-3px, 0); }
+  60% { clip-path: inset(15% 0 75% 0); transform: translate(2px, 1px); }
+  65% { clip-path: inset(65% 0 25% 0); transform: translate(-1px, -1px); }
+  70% { clip-path: inset(35% 0 50% 0); transform: translate(4px, 0); }
+  75% { clip-path: inset(85% 0 8% 0); transform: translate(-2px, 1px); }
+  80% { clip-path: inset(5% 0 80% 0); transform: translate(1px, -1px); }
+  85% { clip-path: inset(50% 0 30% 0); transform: translate(-3px, 0); }
+  90% { clip-path: inset(20% 0 65% 0); transform: translate(2px, 1px); }
+  95% { clip-path: inset(80% 0 5% 0); transform: translate(-1px, -1px); }
+  100% { clip-path: inset(40% 0 45% 0); transform: translate(0, 0); }
+}
+
+/* Placeholder for potential future body copy */
+p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+/* 3 & 6. Link/Button Styling & Hover */
+a,
+button { /* Apply to both links and buttons for consistency */
+  color: var(--accent-cyan);
+  text-decoration: none;
+  font-variant: small-caps;
+  text-transform: uppercase; /* small-caps handles this, but uppercase is a fallback */
+  letter-spacing: 0.2em;
+  padding-bottom: 0.2em; /* Space for the underline */
+  position: relative;
+  background-image: linear-gradient(var(--accent-cyan), var(--accent-cyan));
+  background-size: 0% 2px; /* Start with underline hidden */
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 0.3s ease-out, text-shadow 0.3s ease-out;
+}
+
+a:hover,
+button:hover {
+  background-size: 100% 2px; /* Expand underline */
+  text-shadow: 0 0 8px var(--accent-cyan); /* Neon glow */
+  cursor: pointer;
+}
+
+/* Canvas Positioning */
+#background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Position behind all other content */
+  pointer-events: none; /* Ensure it doesn't interfere with interactions */
+}
+
+/* 6. Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 5a. Animated Noise/Static Background */
+@keyframes noise-flicker {
+  0% { opacity: 0.02; }
+  25% { opacity: 0.04; }
+  50% { opacity: 0.03; }
+  75% { opacity: 0.05; }
+  100% { opacity: 0.025; }
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Place behind canvas (-1) and main content (1) */
+  z-index: -2;
+  pointer-events: none;
+
+  /* Noise texture using gradients */
+  background-image: repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.01) 0,
+      rgba(255, 255, 255, 0.01) 1px,
+      transparent 1px,
+      transparent 6px
+    ),
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.01) 0,
+      rgba(255, 255, 255, 0.01) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+  background-size: 3px 3px; /* Adjust size for noise density */
+
+  /* Blend noise with background */
+  background-blend-mode: overlay; /* 'difference' can be harsh, 'overlay' or 'soft-light' are subtler */
+
+  /* Apply flicker animation */
+  animation: noise-flicker 0.15s infinite steps(1); /* steps(1) for sharp transitions */
+}
+
+
+/* 7. Accessibility - Reduced Motion Fallback (Basic) */
+@media (prefers-reduced-motion: reduce) {
+  main {
+    animation: none; /* Disable fade-in */
+    opacity: 1; /* Ensure it's visible */
+    transform: translateY(0);
+  }
+
+  a:hover,
+  button:hover {
+    transition: none; /* Disable hover transitions */
+    text-shadow: none; /* Optional: remove glow if distracting */
+  }
+
+  /* Disable glitch animation */
+  h1::before,
+  h1::after {
+    animation: none;
+    clip-path: none; /* Remove clipping */
+    text-shadow: none; /* Remove color shift */
+    display: none; /* Or simply hide them */
+  }
+  /* Further reductions for glitch/flicker will be added later */
+
+  /* Disable noise flicker */
+  body::before {
+    animation: none;
+    background-image: none; /* Optionally remove static noise too */
+  }
+}
