@@ -1,5 +1,6 @@
-name = "bytecrash-landing" # Using the repo name as a default
-compatibility_date = "2025-04-27" # Using the date from the error log
+name = "bytecrash-landing"
+compatibility_date = "2025-04-27"
 
-[site]
-bucket = "." # Point to the root directory containing the static files
+# Configure deployment of static assets from the root directory
+[assets]
+directory = "."
